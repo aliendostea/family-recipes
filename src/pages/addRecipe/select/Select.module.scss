@@ -1,0 +1,71 @@
+.select {
+  width: 100%;
+  height: 6rem;
+  display: inline-block;
+  font-family: var(---font-family);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: black;
+  letter-spacing: 0.56px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  outline: none;
+  overflow-x: hidden;
+  padding: 1.6rem 1.8rem;
+  resize: none;
+  transition: all 0.2s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-word-break: normal;
+  word-break: normal;
+
+  &-label {
+    display: block;
+    font-family: var(---font-family);
+    font-size: 1.7rem;
+    font-weight: 638;
+    color: #4a4a4a;
+    margin-bottom: 5px;
+
+    &--error {
+      color: #c12626;
+    }
+  }
+  &-span-error {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #c12626;
+    margin-top: 0.5rem;
+  }
+  &--error {
+    border: 1px solid #c12626;
+
+    &:focus {
+      border: 1px solid #c12626;
+    }
+  }
+  &-box {
+    position: relative;
+
+    &:after {
+      content: ">";
+      font: 17px "Consolas", monospace;
+      color: #333;
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+      padding: 0 0 2px;
+      pointer-events: none;
+      position: absolute;
+      right: 13px;
+      top: 39px;
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,101 @@
+.select-chip-parent {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: minmax(10rem, 35rem);
+  grid-template-columns: minmax(10rem, 1fr);
+  color: #4a4a4a;
+  position: relative;
+
+  & .box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 8px 1rem;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    background-color: rgb(255, 255, 255);
+
+    &:focus-within {
+      transition: var(---transition1);
+      border: 1px solid var(---color-primary);
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  outline: none;
+  border: none;
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  font-family: var(---font-family);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.56px;
+  padding: 0.6rem 0.8rem 0.6rem 1rem;
+  padding: 0.6rem 4.8rem 0.6rem 1rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  transition: var(---transition1);
+
+  &:focus {
+    outline: none;
+    border: 1px solid transparent;
+  }
+
+  &-hidden {
+    display: none;
+  }
+}
+
+.chip {
+  height: 2.35rem;
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  padding: 4px 12px;
+  border-radius: 10px;
+  background-color: #e2e2e2;
+
+  & > span:nth-child(1) {
+    display: inherit;
+    cursor: pointer;
+  }
+}
+
+.label {
+  display: grid;
+  gap: 5px;
+  font-family: var(---font-family);
+  font-size: 1.7rem;
+  font-weight: 638;
+  color: #4a4a4a;
+}
+
+.btn-add {
+  display: inline-block;
+  gap: 5px;
+  font-family: var(---font-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(---color-primary);
+  padding: 3px 9px;
+  border-radius: 26px;
+  background-color: rgb(239, 244, 251);
+  transition: var(---transition1);
+  position: absolute;
+  right: 5px;
+  bottom: 14px;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
