@@ -1,0 +1,14 @@
+.home {
+  display: grid;
+  grid-template-columns: minmax(20rem, 79rem);
+  align-self: start;
+  gap: 5rem;
+  padding-top: 10rem;
+
+  & > h2:nth-child(1) {
+    font-size: 6.7rem;
+    text-align: center;
+    line-height: 1;
+    color: #556a79;
+  }
+}

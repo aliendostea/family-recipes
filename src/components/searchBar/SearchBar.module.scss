@@ -1,0 +1,49 @@
+.search {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  position: relative;
+
+  & > input {
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem 1.5rem 3.7rem;
+    border-radius: 10px;
+    color: rgb(143, 143, 143);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid transparent;
+    border-radius: 65px;
+    box-shadow: 0 0 21px rgba(71, 110, 145, 0.2);
+    transition: var(---transition1);
+    outline: none;
+
+    &:focus {
+      outline: none;
+      border: 1px solid var(---color-primary);
+    }
+  }
+
+  & > figure {
+    position: absolute;
+    top: 15px;
+    left: 8px;
+  }
+
+  & > button {
+    font-family: var(---font-family);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgb(24, 89, 49);
+    letter-spacing: 0.037em;
+    white-space: nowrap;
+    background-color: var(---color-primary);
+    padding: 1.2rem 3rem;
+    border-radius: 43px;
+    position: absolute;
+    right: 4px;
+    top: 3px;
+    transition: var(---transition1);
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

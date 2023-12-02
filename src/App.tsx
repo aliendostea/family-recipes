@@ -14,6 +14,9 @@ function RoutesApp() {
         <Route path="/add-recipe">
           <Route path="/add-recipe" element={<AddRecipe />} />
         </Route>
+        <Route path="*">
+          <Route path="*" element={<div>NOT FOUND </div>} />
+        </Route>
       </>
     </Routes>
   );
