@@ -1,9 +1,68 @@
-import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import recipes from "./recipes.json" assert { type: "json" };
 
-dotenv.config();
+const recipes = [
+  {
+    id: "new1111",
+    timeStamp: "string2",
+    title: "Spaghetti Bolognese nombre largo!",
+    autor: "Chef John 2",
+    description: "A classic Italian dish with a twist.",
+    category: "Pasta",
+    cookingTime: "30 minutes",
+    peopleQuantity: 4,
+    ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
+    preparation: [
+      {
+        label: "Preparación paso 1",
+        description: "Pelamos el tomate para cortarlo en finas rodajas.",
+        img: "img.png",
+      },
+    ],
+    mainPhoto:
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "2222",
+    timeStamp: "string2",
+    title: "Spaghetti Bolognese",
+    autor: "Chef John 2",
+    description: "A classic Italian dish with a twist.",
+    category: "Bologna",
+    cookingTime: "30 minutes",
+    peopleQuantity: 4,
+    ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
+    preparation: [
+      {
+        label: "Preparación paso 1",
+        description: "Pelamos el tomate para cortarlo en finas rodajas.",
+        img: "img.png",
+      },
+    ],
+    mainPhoto:
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "3333",
+    timeStamp: "string2",
+    title: "Spaghetti Bolognese 2",
+    autor: "Nonna",
+    description: "A classic Italian dish with a twist.",
+    category: "Bologna",
+    cookingTime: "30 minutes",
+    peopleQuantity: 4,
+    ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
+    preparation: [
+      {
+        label: "Preparación paso 1",
+        description: "Pelamos el tomate para cortarlo en finas rodajas.",
+        img: "img.png",
+      },
+    ],
+    mainPhoto:
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+];
 
 const PORT = process.env.PORT ?? 1234;
 
