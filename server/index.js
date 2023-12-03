@@ -77,7 +77,7 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
 
   const RESPONSE_SERVER_JSON = {
