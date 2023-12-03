@@ -8,7 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT ?? 1234;
 
 const corsOptions = {
-  origin: ["*", "https://family-recipes-seven.vercel.app/"],
+  origin: ["*", "https://family-recipes-api.vercel.app/"],
   methods: ["POST", "GET"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
@@ -18,7 +18,7 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get("/family-recipes", (req, res) => {
+app.get("/", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
 
   const RESPONSE_SERVER_JSON = {
