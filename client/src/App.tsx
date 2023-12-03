@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { getFetchingDataRecipes } from "./services";
+import { useRecipeStore } from "./store/recipes";
 import { AddRecipe, Home, RecipeList } from "./pages";
 import { ResponseAPIProps } from "./types";
 
@@ -26,10 +27,16 @@ function RoutesApp() {
 }
 
 const App = () => {
+  const setAllInitRecipes = useRecipeStore((state) => state.setAllInitRecipes);
+  const setAllCategories = useRecipeStore((state) => state.setAllCategories);
+
   useEffect(() => {
     const getRecipes = async () => {
       try {
         const { response }: ResponseAPIProps = await getFetchingDataRecipes();
+
+        setAllInitRecipes(response);
+        setAllCategories(response);
 
         console.log("data", response);
       } catch (error) {

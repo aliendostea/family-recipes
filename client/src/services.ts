@@ -1,3 +1,5 @@
+import { RecipeProps } from "./types";
+
 export async function getFetchingDataRecipes() {
   return fetch("https://family-recipes-api.vercel.app/api/v1")
     .then((res) => res.json())
@@ -14,6 +16,14 @@ export async function getFetchingDataRecipes() {
       console.log("Error occurred", error);
       throw new Error("Error en petición");
     });
+}
+
+export function getAllCategories(recipes: RecipeProps[]) {
+  const categories = recipes.map((recipe) => {
+    return recipe.category;
+  });
+
+  return Array.from(new Set(categories));
 }
 
 export const promiseForTesting = async (time: number) =>
