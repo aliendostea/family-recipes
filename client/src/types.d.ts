@@ -31,3 +31,9 @@ export interface RecipeProps {
   ingredients: string[] | string;
   preparation: PreparationSteps;
 }
+
+export interface ResponseAPIProps {
+  status: number;
+  response: RecipeProps[];
+  ok: boolean;
+}
