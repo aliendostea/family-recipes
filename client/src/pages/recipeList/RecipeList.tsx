@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecipeStore } from "../../store/recipes";
-import { Card } from "@/card";
+import { Card, CardSkeleton } from "@/card";
 import { IconX } from "@/icons";
 
 import style from "./RecipeList.module.scss";
@@ -102,7 +102,17 @@ const RecipeList = () => {
           {recipesFiltered.length === 0 && isLoadingRecipes === false && (
             <p>Empty</p>
           )}
-          {isLoadingRecipes && <div>LOADING</div>}
+
+          {isLoadingRecipes && recipesFiltered.length === 0 && (
+            <>
+              <p className={style["title-loading"]}>
+                Se están cargando las recetas, por favor, espera.
+              </p>
+              {Array.from(Array(3).keys()).map((key) => (
+                <CardSkeleton key={`CardSkeleton-${key}`} />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

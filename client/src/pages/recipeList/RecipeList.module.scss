@@ -86,3 +86,11 @@
   align-self: center;
   color: #556a79;
 }
+
+.title-loading {
+  grid-column: 1 / -1;
+  font-size: 2.6rem;
+  font-weight: 450;
+  color: #556a79;
+  text-align: center;
+}
