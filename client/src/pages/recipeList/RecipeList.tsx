@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecipeStore } from "../../store/recipes";
 import { Card } from "@/card";
 import { IconX } from "@/icons";
@@ -29,8 +29,11 @@ function ButtonCategorey({
 
 const RecipeList = () => {
   const paramUrl = useParams();
+  const navigate = useNavigate();
+
   const recipes = useRecipeStore((state) => state.recipes);
   const categories = useRecipeStore((state) => state.categories);
+  const isLoadingRecipes = useRecipeStore((state) => state.isLoadingRecipes);
 
   const [selectedCategory, setselectedCategory] = useState("");
   const [, search] = paramUrl?.search?.split("=") ?? "";
@@ -52,10 +55,16 @@ const RecipeList = () => {
   const selectedCategoryClicked =
     selectedCategory !== "" ? recipesFilteredByCategory : recipesFiltered;
 
+  const handleOnClickAllRecipes = () => {
+    setselectedCategory("");
+    navigate(`/recipes/search=`);
+  };
+
   return (
     <div className={style["recipe-list-wrapper"]}>
       <div className={style["category"]}>
         <span className={style["title"]}>Filtrar por:</span>
+
         {categories.map((category) => (
           <ButtonCategorey
             key={`ButtonCategorey${category}`}
@@ -68,7 +77,14 @@ const RecipeList = () => {
         ))}
 
         <ButtonCategorey
-          key={`ButtonCategorey-`}
+          key={`ButtonCategorey-all`}
+          category="Ver todas las recetas"
+          className={`${style["btn"]} ${style["btn--x"]}`}
+          onClick={handleOnClickAllRecipes}
+        />
+
+        <ButtonCategorey
+          key={`ButtonCategorey-x`}
           category="Quitar Filtros"
           className={`${style["btn"]} ${style["btn--x"]}`}
           onClick={() => setselectedCategory("")}
@@ -83,7 +99,10 @@ const RecipeList = () => {
             <Card key={index} recipe={recipe} />
           ))}
 
-          {recipesFiltered.length === 0 && <h3>Empty</h3>}
+          {recipesFiltered.length === 0 && isLoadingRecipes === false && (
+            <p>Empty</p>
+          )}
+          {isLoadingRecipes && <div>LOADING</div>}
         </div>
       </div>
     </div>

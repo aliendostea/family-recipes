@@ -62,6 +62,26 @@ const recipes = [
     mainPhoto:
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
+  {
+    id: "4444",
+    timeStamp: "string2",
+    title: "Nonna Bolognese 3",
+    autor: "Nonna",
+    description: "A classic Italian dish with a twist.",
+    category: "Bologna",
+    cookingTime: "30 minutes",
+    peopleQuantity: 4,
+    ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
+    preparation: [
+      {
+        label: "Preparación paso 1",
+        description: "Pelamos el tomate para cortarlo en finas rodajas.",
+        img: "img.png",
+      },
+    ],
+    mainPhoto:
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
 
 const PORT = process.env.PORT ?? 1234;

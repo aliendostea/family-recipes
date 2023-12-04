@@ -4,8 +4,10 @@ import { create } from "zustand";
 
 interface RecipeState {
   recipes: RecipeProps[];
+  isLoadingRecipes: boolean;
   categories: string[];
   setRecipes: (recipe: RecipeProps) => void;
+  setIsLoadingRecipes: (loading: boolean) => void;
   setAllInitRecipes: (recipes: RecipeProps[]) => void;
   setAllCategories: (recipes: RecipeProps[]) => void;
 }
@@ -13,6 +15,7 @@ interface RecipeState {
 export const useRecipeStore = create<RecipeState>((set, get) => {
   return {
     recipes: [],
+    isLoadingRecipes: false,
     categories: [],
 
     setRecipes: async (recipe) => {
@@ -20,6 +23,10 @@ export const useRecipeStore = create<RecipeState>((set, get) => {
       const newRecipes = structuredClone(recipes);
 
       set({ recipes: [...newRecipes, recipe] });
+    },
+
+    setIsLoadingRecipes: async (loading) => {
+      set({ isLoadingRecipes: loading });
     },
 
     setAllInitRecipes: async (recipes) => {
