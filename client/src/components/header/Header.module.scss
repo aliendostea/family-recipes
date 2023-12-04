@@ -6,7 +6,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: aliceblue;
-  //// box-shadow: 0 12px 29px #6a8ca4;
   padding: 0 7rem;
 
   & > p {
@@ -14,7 +13,7 @@
     font-weight: 608;
     letter-spacing: -0.44px;
     text-transform: uppercase;
-    color: #556a79;
+    color: var(---color-secondary);
   }
 }
 

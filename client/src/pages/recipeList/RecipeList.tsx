@@ -60,6 +60,10 @@ const RecipeList = () => {
     navigate(`/recipes/search=`);
   };
 
+  const handleOnClickGoBack = () => {
+    navigate("/");
+  };
+
   return (
     <div className={style["recipe-list-wrapper"]}>
       <div className={style["category"]}>
@@ -122,7 +126,12 @@ const RecipeList = () => {
                 No se pudo encontrar la receta, por favor, inténtalo de nuevo o
                 ve atrás.
               </p>
-              <button className={style["btn-submit-form"]}>Ir a la home</button>
+              <button
+                className={style["btn-go-back"]}
+                onClick={handleOnClickGoBack}
+              >
+                Ir a la home
+              </button>
             </div>
           )}
 
