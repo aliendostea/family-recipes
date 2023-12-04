@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecipeStore } from "../../store/recipes";
 import { Card, CardSkeleton } from "@/card";
-import { IconX } from "@/icons";
+import { IconEmpty, IconX } from "@/icons";
 
 import style from "./RecipeList.module.scss";
 
@@ -63,34 +63,50 @@ const RecipeList = () => {
   return (
     <div className={style["recipe-list-wrapper"]}>
       <div className={style["category"]}>
-        <span className={style["title"]}>Filtrar por:</span>
+        <span className={style["category-title"]}>Filtrar por:</span>
 
-        {categories.map((category) => (
-          <ButtonCategorey
-            key={`ButtonCategorey${category}`}
-            category={category}
-            className={`${style["btn"]} ${
-              category === selectedCategory ? style["btn--active"] : ""
-            }`}
-            onClick={() => setselectedCategory(category)}
-          />
-        ))}
+        {isLoadingRecipes &&
+          recipesFiltered.length === 0 &&
+          Array.from(Array(3).keys()).map((key) => (
+            <ButtonCategorey
+              key={`ButtonCategorey-loading${key}`}
+              category=""
+              className={`${style["category-btn"]} ${style["category-btn--loading"]}`}
+              onClick={() => setselectedCategory("")}
+            />
+          ))}
 
-        <ButtonCategorey
-          key={`ButtonCategorey-all`}
-          category="Ver todas las recetas"
-          className={`${style["btn"]} ${style["btn--x"]}`}
-          onClick={handleOnClickAllRecipes}
-        />
+        {isLoadingRecipes === false && (
+          <>
+            {categories.map((category) => (
+              <ButtonCategorey
+                key={`ButtonCategorey${category}`}
+                category={category}
+                className={`${style["category-btn"]} ${
+                  category === selectedCategory
+                    ? style["category-btn--active"]
+                    : ""
+                }`}
+                onClick={() => setselectedCategory(category)}
+              />
+            ))}
+            <ButtonCategorey
+              key={`ButtonCategorey-all`}
+              category="Ver todas las recetas"
+              className={`${style["category-btn"]} ${style["category-btn--x"]}`}
+              onClick={handleOnClickAllRecipes}
+            />
 
-        <ButtonCategorey
-          key={`ButtonCategorey-x`}
-          category="Quitar Filtros"
-          className={`${style["btn"]} ${style["btn--x"]}`}
-          onClick={() => setselectedCategory("")}
-        >
-          <IconX width="18" height="18" />
-        </ButtonCategorey>
+            <ButtonCategorey
+              key={`ButtonCategorey-x`}
+              category="Quitar Filtros"
+              className={`${style["category-btn"]} ${style["category-btn--x"]}`}
+              onClick={() => setselectedCategory("")}
+            >
+              <IconX width="18" height="18" />
+            </ButtonCategorey>
+          </>
+        )}
       </div>
       <div className={style["parent-recipes2"]}>
         <h2>Lista de recetas</h2>
@@ -100,7 +116,14 @@ const RecipeList = () => {
           ))}
 
           {recipesFiltered.length === 0 && isLoadingRecipes === false && (
-            <p>Empty</p>
+            <div className={style["box-empty-recipes"]}>
+              <IconEmpty width="80" height="80" />
+              <p>
+                No se pudo encontrar la receta, por favor, inténtalo de nuevo o
+                ve atrás.
+              </p>
+              <button className={style["btn-submit-form"]}>Ir a la home</button>
+            </div>
           )}
 
           {isLoadingRecipes && recipesFiltered.length === 0 && (

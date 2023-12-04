@@ -11,7 +11,6 @@
 
 .parent-recipes2 {
   width: 100%;
-  /// width: calc(100% - 13rem);
   display: grid;
   grid-auto-rows: min-content;
   gap: 2rem;
@@ -24,67 +23,94 @@
 .wrapper-recipes {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(104px, 26rem));
+  justify-content: center;
   gap: 4rem;
 }
 
 .category {
   width: 100%;
   display: flex;
-  ////  grid-template-columns: repeat(auto-fill, minmax(5rem, 11rem));
   gap: 10px;
   padding: 1rem 2rem;
-}
 
-.btn {
-  font-family: var(---font-family);
-  font-size: 1.4rem;
-  font-weight: 800;
-  white-space: nowrap;
-  padding: 1rem 2rem;
-  border-radius: 30px;
-  background-color: rgb(229, 240, 252);
-  color: rgba(88, 153, 114, 0.77);
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: rgb(9, 179, 77);
-    color: rgb(24, 89, 49);
-    transform: translateY(-5px);
-    box-shadow: 0 7px 15px hsla(211, 30%, 27%, 0.369);
-  }
-  &:active {
-    transform: translateY(-1px);
+  &-title {
+    font-size: 1.7rem;
+    font-weight: 805;
+    line-height: 1;
+    align-self: center;
+    color: #556a79;
+    white-space: nowrap;
   }
 
-  &--active {
-    color: rgb(24, 89, 49);
-    background-color: var(---color-primary);
-    box-shadow: 0 7px 15px hsla(211, 30%, 27%, 0.369);
-  }
-  &--x {
-    display: grid;
-    grid-template-columns: min-content max-content;
-    place-items: center;
-    padding: 1rem 2rem 1rem 1.5rem;
+  &-btn {
+    font-family: var(---font-family);
+    font-size: 1.4rem;
+    font-weight: 800;
+    white-space: nowrap;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    background-color: rgb(229, 240, 252);
+    color: rgba(88, 153, 114, 0.77);
+    transition: all 0.2s ease-in-out;
 
-    & svg {
-      fill: rgba(43, 109, 68, 0.622);
-      transition: all 0.2s ease-in-out;
-      margin-right: 4px;
+    &:hover {
+      background-color: rgb(9, 179, 77);
+      color: rgb(24, 89, 49);
+      transform: translateY(-5px);
+      box-shadow: 0 7px 15px hsla(211, 30%, 27%, 0.369);
+    }
+    &:active {
+      transform: translateY(-1px);
     }
 
-    &:hover svg {
-      fill: rgb(31, 90, 54);
+    &--active {
+      color: rgb(24, 89, 49);
+      background-color: var(---color-primary);
+      box-shadow: 0 7px 15px hsla(211, 30%, 27%, 0.369);
+    }
+    &--x {
+      display: grid;
+      grid-template-columns: min-content max-content;
+      place-items: center;
+      padding: 1rem 2rem 1rem 1.5rem;
+
+      & svg {
+        fill: rgba(43, 109, 68, 0.622);
+        transition: all 0.2s ease-in-out;
+        margin-right: 4px;
+      }
+
+      &:hover svg {
+        fill: rgb(31, 90, 54);
+      }
+    }
+
+    &--loading {
+      width: 9rem;
+      height: 3.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    &--loading::after {
+      content: "";
+      transform: translateX(-100%);
+      background-image: linear-gradient(
+        90deg,
+        rgba(#000000, 0) 0,
+        rgba(#000000, 0.2) 20%,
+        rgba(#000000, 0.5) 60%,
+        rgba(#000000, 0)
+      );
+      animation: loading-ctg 1.5s infinite;
+      opacity: 0.25;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
     }
   }
-}
-
-.title {
-  font-size: 1.7rem;
-  font-weight: 805;
-  line-height: 1;
-  align-self: center;
-  color: #556a79;
 }
 
 .title-loading {
@@ -93,4 +119,23 @@
   font-weight: 450;
   color: #556a79;
   text-align: center;
+}
+
+.box-empty-recipes {
+  grid-column: 1 / -1;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  justify-self: center;
+  gap: 2rem;
+
+  & > p:nth-child(2) {
+    color: #6d7982;
+  }
+}
+
+@keyframes loading-ctg {
+  100% {
+    transform: translateX(100%);
+  }
 }
