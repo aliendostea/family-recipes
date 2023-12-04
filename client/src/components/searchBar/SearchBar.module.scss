@@ -45,5 +45,15 @@
     &:focus {
       outline: none;
     }
+
+    &:hover {
+      background-color: rgb(9, 179, 77);
+      color: rgb(24, 89, 49);
+      transform: translateY(-5px);
+      box-shadow: 0 7px 15px hsla(211, 30%, 27%, 0.369);
+    }
+    &:active {
+      transform: translateY(-1px);
+    }
   }
 }
