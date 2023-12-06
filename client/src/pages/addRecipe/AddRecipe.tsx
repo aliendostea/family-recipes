@@ -7,6 +7,8 @@ import { InputImage } from "./inputImage";
 import { PreparationStepsList } from "./preparationSteps";
 import { IconAdd } from "@/icons";
 import { PreparationSteps, RecipeProps } from "@/types";
+import { fetchPostRecipe } from "../../services";
+
 import style from "./AddRecipe.module.scss";
 
 const SELECT_OPTIONS_CATEGORIES = ["Pasta", "Sopa", "Bolognese"];
@@ -36,6 +38,18 @@ const AddRecipe = () => {
       img: "img.png",
     },
   ]);
+
+  const sendSubmitDataForm = async (recipe: RecipeProps) => {
+    try {
+      const res = await fetchPostRecipe(recipe);
+
+      if (res.ok) {
+        console.log("sendSubmitDataForm", res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,11 +95,34 @@ const AddRecipe = () => {
     console.log("newRecipeValues", newRecipeValues);
     setRecipes(newRecipeValues);
     // input.value = "";
+
+    sendSubmitDataForm({
+      id: "NEW--999999",
+      timeStamp: "string2",
+      title: "Spaghetti Bolognese nombre largo!",
+      autor: "Chef John 2",
+      description: "A classic Italian dish with a twist.",
+      category: "Pasta",
+      cookingTime: "30 minutes",
+      peopleQuantity: 4,
+      ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
+      preparation: [
+        {
+          label: "Preparación paso 1",
+          description: "Pelamos el tomate para cortarlo en finas rodajas.",
+          img: "img.png",
+        },
+      ],
+      mainPhoto:
+        "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    });
   };
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectCompValue(e.target.value);
   };
+
+  ///// error en preparación. En la key de los elementos de preparation
 
   const handleClickAddPreparationStep = () => {
     const newArray = [

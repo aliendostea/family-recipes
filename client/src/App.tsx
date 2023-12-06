@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import { getFetchingDataRecipes, promiseForTesting } from "./services";
+import { getFetchingDataRecipes } from "./services";
 import { useRecipeStore } from "./store/recipes";
 import { AddRecipe, Home, RecipeList } from "./pages";
 import { ResponseAPIProps } from "./types";
@@ -38,7 +38,7 @@ const App = () => {
       setIsLoadingRecipes(true);
 
       try {
-        await promiseForTesting(4000);
+        ///  await promiseForTesting(4000);
         const { response }: ResponseAPIProps = await getFetchingDataRecipes();
 
         setAllInitRecipes(response);
