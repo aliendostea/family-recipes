@@ -84,21 +84,22 @@ const recipes = [
   },
 ];
 
+// const corsOptions = {
+//   contentType: "application/json",
+//   origin: ["*", "https://family-recipes-api.vercel.app/"],
+//   methods: ["POST", "GET"],
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// };
+
 const PORT = process.env.PORT ?? 1234;
-
-const corsOptions = {
-  origin: ["*", "https://family-recipes-api.vercel.app/"],
-  methods: ["POST", "GET"],
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-
 const app = express();
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/v1", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  /// res.header("Access-Control-Allow-Origin", "*");
 
   const RESPONSE_SERVER_JSON = {
     status: 200,
@@ -109,9 +110,29 @@ app.get("/api/v1", (req, res) => {
   res.json(RESPONSE_SERVER_JSON);
 });
 
+app.post("/api/v2/add", (req, res) => {
+  try {
+    const requestData = req.body;
+    console.log("-------------------------> Received:", requestData);
+
+    const RESPONSE_SERVER_JSON = {
+      status: 200,
+      response: {
+        id: Date.now().toString(), //// TODO - UUID
+        date: Date.now(),
+        messageApi: "Successfully added recipe",
+        recipe: requestData,
+      },
+      ok: true,
+    };
+
+    res.status(200).json(RESPONSE_SERVER_JSON);
+    console.log("-------------------------> end of process");
+  } catch (error) {
+    console.log("error----------", error);
+  }
+});
+
 app.listen(PORT, () => {
-  console.log(`server listening on port http://localhost:${PORT}`);
-  console.log(
-    `server listening on port  https://family-recipes-seven.vercel.app:${PORT}`
-  );
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
