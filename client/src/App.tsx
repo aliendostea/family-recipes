@@ -4,6 +4,7 @@ import { getFetchingDataRecipes } from "./services";
 import { useRecipeStore } from "./store/recipes";
 import { AddRecipe, Home, RecipeList } from "./pages";
 import { ResponseAPIProps } from "./types";
+import { ROUTE_ADD_RECIPE, ROUTE_RECIPES } from "./const";
 
 function RoutesApp() {
   return (
@@ -12,11 +13,11 @@ function RoutesApp() {
         <Route path="/">
           <Route path="/" element={<Home />} />
         </Route>
-        <Route path="/recipes/:search">
-          <Route path="/recipes/:search" element={<RecipeList />} />
+        <Route path={`${ROUTE_RECIPES}/:search`}>
+          <Route path={`${ROUTE_RECIPES}/:search`} element={<RecipeList />} />
         </Route>
-        <Route path="/add-recipe">
-          <Route path="/add-recipe" element={<AddRecipe />} />
+        <Route path={`${ROUTE_ADD_RECIPE}`}>
+          <Route path={`${ROUTE_ADD_RECIPE}`} element={<AddRecipe />} />
         </Route>
         <Route path="*">
           <Route path="*" element={<div>NOT FOUND </div>} />

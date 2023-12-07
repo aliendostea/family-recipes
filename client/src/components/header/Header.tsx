@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { IconAdd, IconMenu, IconPasta } from "@/icons";
 import { SearchBar } from "@/searchBar";
+import {
+  ROUTE_ADD_RECIPE,
+  ROUTE_ALL_RECIPES_LIST,
+  ROUTE_RECIPES_SEARCH,
+} from "../../const";
 
 import style from "./Header.module.scss";
 
-const routeRecipes = "/recipes/search";
-const routeAllRecipesList = "/recipes/search=";
-const routeAddRecipe = "/add-recipe";
-const inputSearchName = "search-bar-header";
+const INPUT_SEARCH_NAME_HEADER = "search-bar-header";
 
 const Header = () => {
   return (
@@ -17,19 +19,19 @@ const Header = () => {
       </Link>
 
       <SearchBar
-        inputName={inputSearchName}
-        routeRecipes={routeRecipes}
+        inputName={INPUT_SEARCH_NAME_HEADER}
+        routeRecipes={ROUTE_RECIPES_SEARCH}
         label="Buscar"
       />
 
-      <Link to={routeAddRecipe}>
+      <Link to={ROUTE_ADD_RECIPE}>
         <button className={style.btns}>
           <IconAdd width="20" height="20" color="var(---color-secondary)" />
           Añadir receta
         </button>
       </Link>
 
-      <Link to={routeAllRecipesList}>
+      <Link to={ROUTE_ALL_RECIPES_LIST}>
         <button className={style.btns}>
           <IconPasta width="20" height="20" color="var(---color-secondary)" />
           Ver recetas
