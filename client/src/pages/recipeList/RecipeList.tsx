@@ -27,16 +27,70 @@ function ButtonCategorey({
   );
 }
 
+function NotFoundRecipeListRoute({
+  handleOnClickGoBack,
+}: {
+  handleOnClickGoBack: () => void;
+}) {
+  return (
+    <div className={style["recipe-list-wrapper"]}>
+      <div className={style["category"]}>
+        {Array.from(Array(3).keys()).map((key) => (
+          <ButtonCategorey
+            key={`ButtonCategorey-loading${key}`}
+            category=""
+            className={`${style["category-btn"]} ${style["category-btn--loading"]}`}
+            onClick={() => ""}
+          />
+        ))}
+      </div>
+
+      <div className={style["parent-recipes2"]}>
+        <h2>Lista de recetas</h2>
+        <div className={style["wrapper-recipes"]}>
+          <div className={style["box-empty-recipes"]}>
+            <IconEmpty width="80" height="80" />
+            <p>
+              No se pudo encontrar la receta, por favor, inténtalo de nuevo o ve
+              atrás.
+            </p>
+            <button
+              className={style["btn-go-back"]}
+              onClick={handleOnClickGoBack}
+            >
+              Ir a la home
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const RecipeList = () => {
   const paramUrl = useParams();
   const navigate = useNavigate();
-
   const recipes = useRecipeStore((state) => state.recipes);
   const categories = useRecipeStore((state) => state.categories);
   const isLoadingRecipes = useRecipeStore((state) => state.isLoadingRecipes);
-
   const [selectedCategory, setselectedCategory] = useState("");
+
   const [, search] = paramUrl?.search?.split("=") ?? "";
+
+  const handleOnClickAllRecipes = () => {
+    setselectedCategory("");
+    navigate(`/recipes/search=`);
+  };
+
+  const handleOnClickGoBack = () => {
+    navigate("/");
+  };
+
+  if (search === undefined) {
+    return (
+      <NotFoundRecipeListRoute handleOnClickGoBack={handleOnClickGoBack} />
+    );
+  }
 
   const recipesFiltered = recipes.filter((recipe) => {
     return (
@@ -54,15 +108,6 @@ const RecipeList = () => {
 
   const selectedCategoryClicked =
     selectedCategory !== "" ? recipesFilteredByCategory : recipesFiltered;
-
-  const handleOnClickAllRecipes = () => {
-    setselectedCategory("");
-    navigate(`/recipes/search=`);
-  };
-
-  const handleOnClickGoBack = () => {
-    navigate("/");
-  };
 
   return (
     <div className={style["recipe-list-wrapper"]}>
