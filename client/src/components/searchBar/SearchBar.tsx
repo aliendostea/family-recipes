@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { IconSearch } from "@/icons";
+import { Button } from "@/button";
 
 import style from "./SearchBar.module.scss";
 
@@ -31,7 +32,7 @@ const SearchBar = ({ inputName, routeRecipes, label }: SearchBarProps) => {
         name={inputName}
         placeholder="Intenta buscar pasta bolognese o nonna"
       />
-      <button type="submit">{label} </button>
+      <Button label={label} type="submit" />
     </form>
   );
 };

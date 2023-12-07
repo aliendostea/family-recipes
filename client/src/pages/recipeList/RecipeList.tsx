@@ -5,6 +5,7 @@ import { Card, CardSkeleton } from "@/card";
 import { IconEmpty, IconX } from "@/icons";
 
 import style from "./RecipeList.module.scss";
+import { Button } from "@/button";
 
 interface ButtonCategoreyProps {
   category: string;
@@ -54,12 +55,7 @@ function NotFoundRecipeListRoute({
               No se pudo encontrar la receta, por favor, inténtalo de nuevo o ve
               atrás.
             </p>
-            <button
-              className={style["btn-go-back"]}
-              onClick={handleOnClickGoBack}
-            >
-              Ir a la home
-            </button>
+            <Button label="Ir a la home" onClick={handleOnClickGoBack} />
           </div>
         </div>
       </div>
@@ -108,6 +104,12 @@ const RecipeList = () => {
 
   const selectedCategoryClicked =
     selectedCategory !== "" ? recipesFilteredByCategory : recipesFiltered;
+
+  if (recipesFiltered.length === 0 && isLoadingRecipes === false) {
+    return (
+      <NotFoundRecipeListRoute handleOnClickGoBack={handleOnClickGoBack} />
+    );
+  }
 
   return (
     <div className={style["recipe-list-wrapper"]}>
@@ -163,22 +165,6 @@ const RecipeList = () => {
           {selectedCategoryClicked.map((recipe, index) => (
             <Card key={index} recipe={recipe} />
           ))}
-
-          {recipesFiltered.length === 0 && isLoadingRecipes === false && (
-            <div className={style["box-empty-recipes"]}>
-              <IconEmpty width="80" height="80" />
-              <p>
-                No se pudo encontrar la receta, por favor, inténtalo de nuevo o
-                ve atrás.
-              </p>
-              <button
-                className={style["btn-go-back"]}
-                onClick={handleOnClickGoBack}
-              >
-                Ir a la home
-              </button>
-            </div>
-          )}
 
           {isLoadingRecipes && recipesFiltered.length === 0 && (
             <>
