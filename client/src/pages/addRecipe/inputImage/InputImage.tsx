@@ -57,7 +57,11 @@ const InputImage = ({ id, name, labelPhoto, ...props }: InputImageProps) => {
         </figure>
       ) : (
         <figure className={style["figure-image"]}>
-          <img src={inputFilesImage.objectURL} alt="Select image" />
+          <img
+            src={inputFilesImage.objectURL}
+            alt="Select image"
+            loading="lazy"
+          />
         </figure>
       )}
       <span className={style["label"]}> {labelPhoto} </span>

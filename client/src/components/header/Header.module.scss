@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: max-content minmax(10rem, 65rem) min-content;
+  grid-template-columns: max-content minmax(10rem, 65rem) max-content min-content;
   justify-content: space-between;
   align-items: center;
   background-color: aliceblue;
@@ -52,5 +52,34 @@
 
   &:hover {
     transform: translateY(-7px);
+  }
+}
+
+.btns {
+  display: flex;
+  gap: 4px;
+  font-family: var(---font-family);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: rgb(24, 89, 49);
+  letter-spacing: 0.037em;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  outline: none;
+  transition: var(---transition1);
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    color: rgb(24, 89, 49);
+    transform: translateY(-5px);
+  }
+  &:active {
+    transform: translateY(-1px);
   }
 }

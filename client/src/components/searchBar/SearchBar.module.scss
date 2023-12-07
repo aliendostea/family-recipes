@@ -26,34 +26,4 @@
     top: 15px;
     left: 8px;
   }
-
-  & > button {
-    font-family: var(---font-family);
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: rgb(24, 89, 49);
-    letter-spacing: 0.037em;
-    white-space: nowrap;
-    background-color: var(---color-primary);
-    padding: 1.2rem 3rem;
-    border-radius: 43px;
-    position: absolute;
-    right: 4px;
-    top: 3px;
-    transition: var(---transition1);
-
-    &:focus {
-      outline: none;
-    }
-
-    &:hover {
-      background-color: rgb(9, 179, 77);
-      color: rgb(24, 89, 49);
-      transform: translateY(-5px);
-      box-shadow: 0 7px 15px hsla(211, 30%, 27%, 0.369);
-    }
-    &:active {
-      transform: translateY(-1px);
-    }
-  }
 }

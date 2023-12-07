@@ -11,7 +11,7 @@ const Card = ({ recipe }: CardProps) => {
   return (
     <div className={style.card}>
       <figure className={style.photo}>
-        <img src={recipe.mainPhoto} alt={recipe.title} />
+        <img src={recipe.mainPhoto} alt={recipe.title} loading="lazy" />
       </figure>
       <p className={style.title}>{recipe.title}</p>
       <span className={style.creator}>
