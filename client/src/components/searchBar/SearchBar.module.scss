@@ -21,6 +21,12 @@
     }
   }
 
+  & > button:nth-child(3) {
+    position: absolute;
+    right: 4px;
+    top: 3px;
+  }
+
   & > figure {
     position: absolute;
     top: 15px;

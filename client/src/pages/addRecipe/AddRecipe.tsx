@@ -6,7 +6,7 @@ import { SelectChips } from "./selectChips";
 import { InputImage } from "./inputImage";
 import { PreparationStepsList } from "./preparationSteps";
 import { IconAdd } from "@/icons";
-import { PreparationSteps, RecipeProps } from "@/types";
+import { RecipeProps } from "@/types";
 import { fetchPostRecipe } from "../../services";
 
 import style from "./AddRecipe.module.scss";
@@ -27,15 +27,53 @@ const initialInputsValues: RecipeProps = {
   mainPhoto: new Uint8Array([0, 0, 0, 0, 0]),
 };
 
+const raString =
+  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime earum qui suscipit, saepe, at facilis soluta nesciunt reprehenderit quae id molestiae cum natus velit provident quo! Odio eveniet fuga libero";
+
+function getRandomNumber() {
+  const [, randomNumber] = Math.random().toString().split(".");
+  return randomNumber;
+}
+function getIdPreparationStepsList() {
+  const randomString = raString.split(" ").join("");
+  const randomNumberString = getRandomNumber();
+  const randomNumberString2 = getRandomNumber()[0];
+  const first = randomNumberString[0];
+  const date = `${Date.now().toString().substring(9, 12)}`;
+  const other = `${
+    randomString[randomNumberString2 as keyof typeof randomString]
+  }`;
+  return `input-preparation-${date}-${other}-${
+    randomString[first as keyof typeof randomString]
+  }-${randomNumberString.substring(0, 2)}-${randomNumberString.substring(
+    4,
+    6
+  )}`;
+}
+
+function getPreparationValuesFromInputs({
+  objectFormValues,
+  key,
+  index,
+}: {
+  objectFormValues: RecipeProps;
+  key: string;
+  index: string;
+}) {
+  return objectFormValues[
+    `preparation-${key}-${index}` as keyof typeof objectFormValues
+  ];
+}
+
 const AddRecipe = () => {
   const [selectCompValue, setSelectCompValue] = useState("");
   const setRecipes = useRecipeStore((state) => state.setRecipes);
-
   const [preparationSteps, setPreparationSteps] = useState([
     {
+      id: "134578",
       label: "Preparación paso 1",
-      description: "Pelamos el tomate para cortarlo en finas rodajas.",
-      img: "img.png",
+      value: "Pelamos el tomate para cortarlo en finas rodajas.",
+      photo: "img.png",
     },
   ]);
 
@@ -64,19 +102,38 @@ const AddRecipe = () => {
       objectFormValues[key as keyof typeof objectFormValues] = value;
     }
 
-    const preparationArray = Object.keys(objectFormValues).map((key, index) => {
-      if (key.includes("preparation-key")) {
-        const [, , preparationNumber] = key.split("-");
+    for (const key in objectFormValues) {
+      if (key.includes("preparation-value")) {
+        const [, , index] = key.split("-");
+        const id = getPreparationValuesFromInputs({
+          objectFormValues,
+          key: "id",
+          index,
+        });
+        const value = getPreparationValuesFromInputs({
+          objectFormValues,
+          key: "value",
+          index,
+        });
+        const photo = getPreparationValuesFromInputs({
+          objectFormValues,
+          key: "photo",
+          index,
+        });
 
-        return {
-          label: `Preparación paso ${Number(preparationNumber) + 1}`,
-          description: Object.values(objectFormValues)[index] as string,
-          img: Object.values(objectFormValues)[index + 1] as string,
+        const newPreparationObj = {
+          id,
+          label: `Preparación paso ${Number(index) + 1}`,
+          value,
+          photo,
         };
-      } else return null;
-    });
 
-    const preparation = preparationArray.filter(Boolean) as PreparationSteps;
+        objectFormValues.preparation = [
+          ...objectFormValues.preparation,
+          newPreparationObj,
+        ];
+      }
+    }
 
     const ingredients = (objectFormValues["ingredients"] as string).split(",");
     const newRecipeValues = {
@@ -89,48 +146,32 @@ const AddRecipe = () => {
       cookingTime: objectFormValues.cookingTime,
       peopleQuantity: objectFormValues.peopleQuantity,
       ingredients,
-      preparation,
+      preparation: objectFormValues.preparation,
       mainPhoto: objectFormValues.mainPhoto,
     };
-    console.log("newRecipeValues", newRecipeValues);
-    setRecipes(newRecipeValues);
-    // input.value = "";
 
-    sendSubmitDataForm({
-      id: "NEW--999999",
-      timeStamp: "string2",
-      title: "Spaghetti Bolognese nombre largo!",
-      autor: "Chef John 2",
-      description: "A classic Italian dish with a twist.",
-      category: "Pasta",
-      cookingTime: "30 minutes",
-      peopleQuantity: 4,
-      ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
-      preparation: [
-        {
-          label: "Preparación paso 1",
-          description: "Pelamos el tomate para cortarlo en finas rodajas.",
-          img: "img.png",
-        },
-      ],
-      mainPhoto:
-        "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    });
+    console.log("newRecipeValues", newRecipeValues);
+
+    setRecipes(newRecipeValues);
+
+    sendSubmitDataForm(newRecipeValues);
+    // input.value = "";
   };
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectCompValue(e.target.value);
   };
 
-  ///// error en preparación. En la key de los elementos de preparation
-
   const handleClickAddPreparationStep = () => {
+    const id = getIdPreparationStepsList();
+
     const newArray = [
       ...preparationSteps,
       {
+        id: id,
         label: `Preparación paso ${preparationSteps.length + 1}`,
-        description: "Pelamos el tomate para cortarlo en finas rodajas.",
-        img: "img.png",
+        value: "",
+        photo: "",
       },
     ];
 
@@ -138,9 +179,16 @@ const AddRecipe = () => {
   };
 
   const handleClickRemovePreparationStep = (index: number) => {
-    const newArray = preparationSteps.toSpliced(index, 1);
+    const arrayDeletedElement = preparationSteps.toSpliced(index, 1);
 
-    setPreparationSteps(newArray);
+    const arrayLabelUpdated = arrayDeletedElement.map((recipe, index) => {
+      return {
+        ...recipe,
+        label: `Preparación paso ${index + 1}`,
+      };
+    });
+
+    setPreparationSteps(arrayLabelUpdated);
   };
 
   return (

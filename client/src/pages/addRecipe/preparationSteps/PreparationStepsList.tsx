@@ -5,9 +5,10 @@ import { TextField } from "../textField";
 import style from "./PreparationStepsList.module.scss";
 
 interface PreparationListProps {
+  id: string;
   label: string;
-  description: string;
-  img: string;
+  value: string;
+  photo: string;
 }
 
 const PreparationStepsList = ({
@@ -21,14 +22,21 @@ const PreparationStepsList = ({
 }) => {
   return (
     <>
-      {preparationList.map((items, index) => {
+      {preparationList.map((item, index) => {
         return (
-          <div key={items.label} className={style.preparation}>
+          <div key={item.id} className={style.preparation}>
             <TextField
-              id="input-preparation"
-              labelTitle={items.label}
-              inputName={`${inputName}-key-${index}`}
+              id={item.id}
+              labelTitle={item.label}
+              inputName={`${inputName}-value-${index}`}
               placeholder="Añade preparation de la receta"
+            />
+            <input
+              id={`${item.id}`}
+              type="text"
+              name={`${inputName}-id-${index}`}
+              value={`${item.id}`}
+              readOnly={true}
             />
             <InputImage
               id="user-files"

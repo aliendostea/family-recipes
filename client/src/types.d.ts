@@ -8,15 +8,12 @@ declare global {
   }
 }
 
-type PreparationSteps =
-  | [
-      {
-        label: string;
-        description: string;
-        img: string;
-      }
-    ]
-  | [];
+type PreparationSteps = {
+  id: string;
+  label: string;
+  value: string;
+  photo: string;
+};
 
 export interface RecipeProps {
   id: string;
@@ -29,7 +26,7 @@ export interface RecipeProps {
   cookingTime: number | string;
   peopleQuantity: number | string;
   ingredients: string[] | string;
-  preparation: PreparationSteps;
+  preparation: PreparationSteps[];
 }
 
 export interface ResponseAPIProps {
