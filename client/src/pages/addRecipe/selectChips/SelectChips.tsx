@@ -89,6 +89,7 @@ export function SelectChips({
           value={inputValue}
           onChange={handleOnChange}
           onFocusCapture={handleOnFocus}
+          tabIndex={1}
         />
         <input
           id={`hidden-${id}`}

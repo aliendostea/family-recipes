@@ -23,6 +23,7 @@ export function TextField({
         type={type}
         name={inputName}
         placeholder={placeholder}
+        tabIndex={1}
       />
     </label>
   );

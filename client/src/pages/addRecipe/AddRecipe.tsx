@@ -7,25 +7,10 @@ import { InputImage } from "./inputImage";
 import { PreparationStepsList } from "./preparationSteps";
 import { IconAdd } from "@/icons";
 import { RecipeProps } from "@/types";
+import { initialInputsRecipeValues } from "../../const";
 import { fetchPostRecipe } from "../../services";
 
 import style from "./AddRecipe.module.scss";
-
-const SELECT_OPTIONS_CATEGORIES = ["Pasta", "Sopa", "Bolognese"];
-
-const initialInputsValues: RecipeProps = {
-  id: "",
-  timeStamp: "",
-  title: "",
-  autor: "",
-  description: "",
-  category: "",
-  cookingTime: "",
-  peopleQuantity: "",
-  ingredients: [],
-  preparation: [],
-  mainPhoto: new Uint8Array([0, 0, 0, 0, 0]),
-};
 
 const raString =
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime earum qui suscipit, saepe, at facilis soluta nesciunt reprehenderit quae id molestiae cum natus velit provident quo! Odio eveniet fuga libero";
@@ -68,6 +53,8 @@ function getPreparationValuesFromInputs({
 const AddRecipe = () => {
   const [selectCompValue, setSelectCompValue] = useState("");
   const setRecipes = useRecipeStore((state) => state.setRecipes);
+  const categories = useRecipeStore((state) => state.categories);
+
   const [preparationSteps, setPreparationSteps] = useState([
     {
       id: "134578",
@@ -92,7 +79,7 @@ const AddRecipe = () => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const objectFormValues: RecipeProps = {
-      ...initialInputsValues,
+      ...initialInputsRecipeValues,
     };
     const id = window.crypto.randomUUID();
     const timeStamp = new Date().toString();
@@ -229,7 +216,7 @@ const AddRecipe = () => {
             type="text"
             value={selectCompValue}
             label="Categoria receta"
-            optionsArray={SELECT_OPTIONS_CATEGORIES}
+            optionsArray={categories}
             placeholder="Selecciona la categoria"
             /// onBlur={handleBlur}
             /// touched={touched.expirationYear}

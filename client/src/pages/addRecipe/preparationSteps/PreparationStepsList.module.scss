@@ -24,6 +24,10 @@
     left: 0;
     z-index: -1;
   }
+
+  &-id-input-hidden {
+    display: none;
+  }
 }
 
 .btn-detele {

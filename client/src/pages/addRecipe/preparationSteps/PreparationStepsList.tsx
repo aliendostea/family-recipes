@@ -34,6 +34,7 @@ const PreparationStepsList = ({
             <input
               id={`${item.id}`}
               type="text"
+              className={style["preparation-id-input-hidden"]}
               name={`${inputName}-id-${index}`}
               value={`${item.id}`}
               readOnly={true}
