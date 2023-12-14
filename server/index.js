@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { RecipesModel } from "./models/mongodb/recipes.js";
 
 const recipes = [
   {
@@ -98,30 +99,59 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/v1", (req, res) => {
-  /// res.header("Access-Control-Allow-Origin", "*");
+app.get("/api/v1", async (req, res) => {
+  try {
+    const recipes = await RecipesModel.getAllRecipes();
 
-  const RESPONSE_SERVER_JSON = {
-    status: 200,
-    response: recipes,
-    ok: true,
-  };
+    console.log("-------------------------> end of process", recipes);
 
-  res.json(RESPONSE_SERVER_JSON);
+    const RESPONSE_SERVER_JSON = {
+      status: 200,
+      response: recipes,
+      ok: true,
+    };
+
+    res.json(RESPONSE_SERVER_JSON);
+  } catch (error) {
+    console.log("error----------", error);
+  }
 });
 
-app.post("/api/v2/add", (req, res) => {
+app.post("/api/v2/add", async (req, res) => {
+  const requestData = req.body;
   try {
-    const requestData = req.body;
     console.log("-------------------------> Received:", requestData);
+
+    const recipeAdded = await RecipesModel.setRecipe({
+      mainPhoto: "er4343.jpg",
+      title: "MongoDb 5",
+      author: "Me",
+      description: "description 5",
+      category: "category",
+      cookingTime: "2",
+      peopleQuantity: "3",
+      ingredients: ["Pasta", "Mango"],
+      preparation: [
+        {
+          id: "134578",
+          label: "Preparación paso 1",
+          value: "Pelamos el tomate para cortarlo en finas rodajas.",
+          photo: "img.png",
+        },
+        {
+          id: "13457822",
+          label: "Preparación paso 2",
+          value: "El tomate para cortarlo en finas rodajas.",
+          photo: "img.png",
+        },
+      ],
+    });
 
     const RESPONSE_SERVER_JSON = {
       status: 200,
       response: {
-        id: Date.now().toString(), //// TODO - UUID
-        date: Date.now(),
-        messageApi: "Successfully added recipe",
-        recipe: requestData,
+        message: "Successfully added recipe",
+        recipe: recipeAdded,
       },
       ok: true,
     };
