@@ -103,8 +103,6 @@ app.get("/api/v1", async (req, res) => {
   try {
     const recipes = await RecipesModel.getAllRecipes();
 
-    ///  console.log("-------------------------> end of process", recipes);
-
     if (recipes.status === 500) {
       res.json({
         status: 500,
@@ -128,33 +126,41 @@ app.get("/api/v1", async (req, res) => {
 
 app.post("/api/v2/add", async (req, res) => {
   const requestData = req.body;
-  try {
-    console.log("-------------------------> Received:", requestData);
 
-    const recipeAdded = await RecipesModel.setRecipe({
-      mainPhoto: "er4343.jpg",
-      title: "MongoDb 5",
-      author: "Me",
-      description: "description 5",
-      category: "category",
-      cookingTime: "2",
-      peopleQuantity: "3",
-      ingredients: ["Pasta", "Mango"],
-      preparation: [
-        {
-          id: "134578",
-          label: "Preparación paso 1",
-          value: "Pelamos el tomate para cortarlo en finas rodajas.",
-          photo: "img.png",
-        },
-        {
-          id: "13457822",
-          label: "Preparación paso 2",
-          value: "El tomate para cortarlo en finas rodajas.",
-          photo: "img.png",
-        },
-      ],
-    });
+  const provitionalPreparation = requestData.preparation.map((preparation) => {
+    return {
+      label: preparation.label,
+      value: preparation.value,
+      photo: "photo-test",
+    };
+  });
+
+  const provisionalObj = {
+    createdAt: requestData.createdAt,
+    mainPhoto: "mainPhoto-test",
+    title: requestData.title,
+    author: requestData.author,
+    description: requestData.description,
+    category: requestData.category,
+    cookingTime: requestData.cookingTime,
+    peopleQuantity: requestData.peopleQuantity,
+    ingredients: requestData.ingredients,
+    preparation: provitionalPreparation,
+  };
+
+  try {
+    const recipeAdded = await RecipesModel.setRecipe(provisionalObj);
+
+    console.log("---------recipeAdded", recipeAdded);
+
+    if (recipeAdded === undefined) {
+      res.json({
+        status: 500,
+        response: "Error adding recipe",
+        ok: false,
+      });
+      return;
+    }
 
     const RESPONSE_SERVER_JSON = {
       status: 200,
