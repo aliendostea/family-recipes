@@ -1,0 +1,57 @@
+@use "../../styles/responsive.scss";
+
+.res {
+  width: 24rem;
+  grid-template-columns: repeat(2, min-content);
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 1.8rem;
+  border-radius: 10px;
+  background-color: rgb(130, 172, 172);
+  position: fixed;
+  top: 10px;
+  left: 150px;
+  z-index: 1000;
+
+  @include responsive.respond(tab-between-land-desktop) {
+    background-color: rgb(216, 99, 31);
+    color: rgb(18, 34, 4);
+  }
+  @include responsive.respond(tab-land) {
+    background-color: rgb(33, 77, 172);
+    color: rgb(219, 214, 250);
+  }
+  @include responsive.respond(between-pc-and-tab-port) {
+    background-color: rgb(172, 33, 110);
+    color: rgb(10, 65, 35);
+    top: 94px;
+  }
+
+  @include responsive.respond(tab-port) {
+    background-color: rgb(172, 135, 33);
+    color: rgb(65, 43, 10);
+    top: 115px;
+    left: 205px;
+  }
+  @include responsive.respond(phone) {
+    background-color: rgb(43, 49, 49);
+    color: rgb(255, 169, 169);
+    top: 13px;
+    left: 118px;
+  }
+  @include responsive.respond(mini-phone) {
+    background-color: rgb(50, 206, 206);
+    color: rgb(167, 67, 67);
+  }
+  @include responsive.respond(big-desktop) {
+    background-color: rgb(95, 160, 52);
+    color: rgb(18, 34, 4);
+  }
+
+  & span {
+    font-size: 23px;
+    font-weight: 900;
+    color: aliceblue;
+  }
+}

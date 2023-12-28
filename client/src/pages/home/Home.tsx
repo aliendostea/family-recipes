@@ -7,11 +7,7 @@ const Home = () => {
     <div className={style.home}>
       <h2>Busca o añade nuestras recetas familiares</h2>
 
-      <SearchBar
-        inputName="search-bar-home"
-        routeRecipes="/recipes/search"
-        label="Buscar receta"
-      />
+      <SearchBar inputName="search-bar-home" routeRecipes="/recipes/search" label="Buscar receta" />
     </div>
   );
 };
