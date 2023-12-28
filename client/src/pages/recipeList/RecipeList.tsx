@@ -14,12 +14,7 @@ interface ButtonCategoreyProps {
   children?: JSX.Element;
 }
 
-function ButtonCategorey({
-  category,
-  className,
-  onClick,
-  children,
-}: ButtonCategoreyProps) {
+function ButtonCategorey({ category, className, onClick, children }: ButtonCategoreyProps) {
   return (
     <button className={className} onClick={onClick}>
       {children && children}
@@ -28,11 +23,7 @@ function ButtonCategorey({
   );
 }
 
-function NotFoundRecipeListRoute({
-  handleOnClickGoBack,
-}: {
-  handleOnClickGoBack: () => void;
-}) {
+function NotFoundRecipeListRoute({ handleOnClickGoBack }: { handleOnClickGoBack: () => void }) {
   return (
     <div className={style["recipe-list-wrapper"]}>
       <div className={style["category"]}>
@@ -51,10 +42,7 @@ function NotFoundRecipeListRoute({
         <div className={style["wrapper-recipes"]}>
           <div className={style["box-empty-recipes"]}>
             <IconEmpty width="80" height="80" />
-            <p>
-              No se pudo encontrar la receta, por favor, inténtalo de nuevo o ve
-              atrás.
-            </p>
+            <p>No se pudo encontrar la receta, por favor, inténtalo de nuevo o ve atrás.</p>
             <Button label="Ir a la home" onClick={handleOnClickGoBack} />
           </div>
         </div>
@@ -83,32 +71,24 @@ const RecipeList = () => {
   };
 
   if (search === undefined) {
-    return (
-      <NotFoundRecipeListRoute handleOnClickGoBack={handleOnClickGoBack} />
-    );
+    return <NotFoundRecipeListRoute handleOnClickGoBack={handleOnClickGoBack} />;
   }
 
   const recipesFiltered = recipes.filter((recipe) => {
     return (
       recipe.title.toLowerCase().search(search.toLowerCase()) !== -1 ||
-      recipe.autor.toLowerCase().search(search.toLowerCase()) !== -1
+      recipe.author.toLowerCase().search(search.toLowerCase()) !== -1
     );
   });
 
   const recipesFilteredByCategory = recipes.filter((recipe) => {
-    return (
-      recipe.category.toLocaleLowerCase() ===
-      selectedCategory.toLocaleLowerCase()
-    );
+    return recipe.category.toLocaleLowerCase() === selectedCategory.toLocaleLowerCase();
   });
 
-  const selectedCategoryClicked =
-    selectedCategory !== "" ? recipesFilteredByCategory : recipesFiltered;
+  const selectedCategoryClicked = selectedCategory !== "" ? recipesFilteredByCategory : recipesFiltered;
 
   if (recipesFiltered.length === 0 && isLoadingRecipes === false) {
-    return (
-      <NotFoundRecipeListRoute handleOnClickGoBack={handleOnClickGoBack} />
-    );
+    return <NotFoundRecipeListRoute handleOnClickGoBack={handleOnClickGoBack} />;
   }
 
   return (
@@ -134,9 +114,7 @@ const RecipeList = () => {
                 key={`ButtonCategorey${category}`}
                 category={category}
                 className={`${style["category-btn"]} ${
-                  category === selectedCategory
-                    ? style["category-btn--active"]
-                    : ""
+                  category === selectedCategory ? style["category-btn--active"] : ""
                 }`}
                 onClick={() => setselectedCategory(category)}
               />
@@ -168,9 +146,7 @@ const RecipeList = () => {
 
           {isLoadingRecipes && recipesFiltered.length === 0 && (
             <>
-              <p className={style["title-loading"]}>
-                Se están cargando las recetas, por favor, espera.
-              </p>
+              <p className={style["title-loading"]}>Se están cargando las recetas, por favor, espera.</p>
               {Array.from(Array(3).keys()).map((key) => (
                 <CardSkeleton key={`CardSkeleton-${key}`} />
               ))}

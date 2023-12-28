@@ -6,7 +6,7 @@ export function recipeAdapterObj(recipe: RecipePropsFromAPI) {
     createdAt: recipe.createdAt,
     mainPhoto: recipe.mainPhoto,
     title: recipe.title,
-    autor: recipe.author,
+    author: recipe.author,
     description: recipe.description,
     category: recipe.category,
     cookingTime: recipe.cookingTime,

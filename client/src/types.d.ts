@@ -20,7 +20,7 @@ export interface RecipeProps {
   createdAt: string;
   mainPhoto: Blob | Uint8Array | ArrayBuffer | any;
   title: string;
-  autor: string;
+  author: string;
   description: string;
   category: string;
   cookingTime: number | string;

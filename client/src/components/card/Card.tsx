@@ -17,7 +17,7 @@ const Card = ({ recipe }: CardProps) => {
       <span className={style.creator}>
         <IconPerson width="19" height="19" />
         <span>
-          <b> Autor:</b> {recipe.autor}
+          <b> Autor:</b> {recipe.author}
         </span>
       </span>
       <span className={style.time}>

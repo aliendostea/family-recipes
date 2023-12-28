@@ -9,7 +9,7 @@ export const initialInputsRecipeValues: RecipeProps = {
   id: "",
   createdAt: "",
   title: "",
-  autor: "",
+  author: "",
   description: "",
   category: "",
   cookingTime: "",

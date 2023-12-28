@@ -116,7 +116,7 @@ const AddRecipe = () => {
       id,
       createdAt: "",
       title: objectFormValues.title,
-      autor: objectFormValues.autor,
+      author: objectFormValues.author,
       description: objectFormValues.description,
       category: objectFormValues.category,
       cookingTime: objectFormValues.cookingTime,
@@ -126,10 +126,7 @@ const AddRecipe = () => {
       mainPhoto: objectFormValues.mainPhoto,
     };
 
-    console.log("newRecipeValues", newRecipeValues);
-
     setRecipes(newRecipeValues);
-
     sendSubmitDataForm(newRecipeValues);
     // input.value = "";
   };
@@ -176,9 +173,9 @@ const AddRecipe = () => {
 
           <TextField id="input-title" labelTitle="Título receta" inputName="title" placeholder="Añade título" />
           <TextField
-            id="input-autor"
+            id="input-author"
             labelTitle="Autor receta"
-            inputName="autor"
+            inputName="author"
             placeholder="Añade autor de la receta"
           />
           <TextField
