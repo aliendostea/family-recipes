@@ -1,4 +1,4 @@
-# Family Recipes - React + TypeScript + Vite + Express + Node + Vercel deploy ⚡️
+# Family Recipes - React + TypeScript + Vite + Express + Node + MongoDB + Vercel deploy ⚡️
 
 Welcome to my family-recipes project a full-stack web application for managing and exploring multiple food recipes. A CRUD app to add, remove, and search recipes.
 

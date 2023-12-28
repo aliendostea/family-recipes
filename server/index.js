@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import { RecipesModel } from "./models/mongodb/recipes.js";
 
-const recipes = [
+const recipes2 = [
   {
-    id: "new1111",
+    _id: "new1111",
     timeStamp: "string2",
     title: "Spaghetti Bolognese nombre largo!",
-    autor: "Chef John 2",
+    author: "Chef John 2",
     description: "A classic Italian dish with a twist.",
     category: "Pasta",
     cookingTime: "30 minutes",
@@ -24,10 +24,10 @@ const recipes = [
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    id: "2222",
+    _id: "2222",
     timeStamp: "string2",
     title: "Spaghetti Bolognese",
-    autor: "Chef John 2",
+    author: "Chef John 2",
     description: "A classic Italian dish with a twist.",
     category: "Bologna",
     cookingTime: "30 minutes",
@@ -44,10 +44,10 @@ const recipes = [
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    id: "3333",
+    _id: "3333",
     timeStamp: "string2",
     title: "Spaghetti Bolognese 2",
-    autor: "Nonna",
+    author: "Nonna",
     description: "A classic Italian dish with a twist.",
     category: "Bologna",
     cookingTime: "30 minutes",
@@ -64,10 +64,10 @@ const recipes = [
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    id: "4444",
+    _id: "4444",
     timeStamp: "string2",
     title: "Nonna Bolognese 3",
-    autor: "Nonna",
+    author: "Nonna",
     description: "A classic Italian dish with a twist.",
     category: "Bologna",
     cookingTime: "30 minutes",
@@ -103,7 +103,16 @@ app.get("/api/v1", async (req, res) => {
   try {
     const recipes = await RecipesModel.getAllRecipes();
 
-    console.log("-------------------------> end of process", recipes);
+    ///  console.log("-------------------------> end of process", recipes);
+
+    if (recipes.status === 500) {
+      res.json({
+        status: 500,
+        response: recipes.response,
+        ok: false,
+      });
+      return;
+    }
 
     const RESPONSE_SERVER_JSON = {
       status: 200,

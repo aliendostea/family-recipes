@@ -67,6 +67,12 @@ export class RecipesModel {
       return await RecipesModelMongoose.find();
     } catch (error) {
       console.log("error", error);
+
+      return {
+        status: 500,
+        response: error,
+        ok: false,
+      };
     }
   }
 
@@ -87,7 +93,7 @@ export class RecipesModel {
   static async connectToMongoDB() {
     try {
       await mongoose.connect(DB_URI);
-      console.log("connected to mongoose");
+      console.log("----- connected to mongoose");
     } catch (error) {
       console.log("error mongoose", error);
     }
