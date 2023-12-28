@@ -50,8 +50,6 @@ export function getAllCategories(recipes: RecipeProps[]) {
   return Array.from(new Set(categories));
 }
 
-export const promiseForTesting = async (time: number) =>
-  new Promise((resolve) => setTimeout(resolve, time));
+export const promiseForTesting = async (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
-export const promiseErrorForTesting = async (time: number) =>
-  new Promise((_, reject) => setTimeout(reject, time));
+export const promiseErrorForTesting = async (time: number) => new Promise((_, reject) => setTimeout(reject, time));
