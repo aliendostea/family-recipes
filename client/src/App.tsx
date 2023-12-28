@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { getFetchingDataRecipes } from "./services";
 import { useRecipeStore } from "./store/recipes";
 import { AddRecipe, Home, RecipeList } from "./pages";
-import { ResponseAPIProps } from "./types";
+import { RecipeProps, ResponseAPIProps } from "./types";
+import { recipeAdapterObj } from "./adapters/recipeAdapter";
 import { ROUTE_ADD_RECIPE, ROUTE_RECIPES } from "./const";
 
 function RoutesApp() {
@@ -30,9 +31,7 @@ function RoutesApp() {
 const App = () => {
   const setAllInitRecipes = useRecipeStore((state) => state.setAllInitRecipes);
   const setAllCategories = useRecipeStore((state) => state.setAllCategories);
-  const setIsLoadingRecipes = useRecipeStore(
-    (state) => state.setIsLoadingRecipes
-  );
+  const setIsLoadingRecipes = useRecipeStore((state) => state.setIsLoadingRecipes);
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -42,10 +41,12 @@ const App = () => {
         ///  await promiseForTesting(4000);
         const { response }: ResponseAPIProps = await getFetchingDataRecipes();
 
-        setAllInitRecipes(response);
-        setAllCategories(response);
+        const newInitRecipes: RecipeProps[] = response.map((recipe) => recipeAdapterObj(recipe));
+
+        setAllInitRecipes(newInitRecipes);
+        setAllCategories(newInitRecipes);
       } catch (error) {
-        console.log("error", error);
+        console.log("error2", error);
       } finally {
         setIsLoadingRecipes(false);
       }

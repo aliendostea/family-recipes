@@ -7,7 +7,7 @@ export const ROUTE_ALL_RECIPES_LIST = `${ROUTE_RECIPES}/search=`;
 
 export const initialInputsRecipeValues: RecipeProps = {
   id: "",
-  timeStamp: "",
+  createdAt: "",
   title: "",
   autor: "",
   description: "",

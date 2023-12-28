@@ -25,15 +25,10 @@ function getIdPreparationStepsList() {
   const randomNumberString2 = getRandomNumber()[0];
   const first = randomNumberString[0];
   const date = `${Date.now().toString().substring(9, 12)}`;
-  const other = `${
-    randomString[randomNumberString2 as keyof typeof randomString]
-  }`;
+  const other = `${randomString[randomNumberString2 as keyof typeof randomString]}`;
   return `input-preparation-${date}-${other}-${
     randomString[first as keyof typeof randomString]
-  }-${randomNumberString.substring(0, 2)}-${randomNumberString.substring(
-    4,
-    6
-  )}`;
+  }-${randomNumberString.substring(0, 2)}-${randomNumberString.substring(4, 6)}`;
 }
 
 function getPreparationValuesFromInputs({
@@ -45,9 +40,7 @@ function getPreparationValuesFromInputs({
   key: string;
   index: string;
 }) {
-  return objectFormValues[
-    `preparation-${key}-${index}` as keyof typeof objectFormValues
-  ];
+  return objectFormValues[`preparation-${key}-${index}` as keyof typeof objectFormValues];
 }
 
 const AddRecipe = () => {
@@ -82,7 +75,6 @@ const AddRecipe = () => {
       ...initialInputsRecipeValues,
     };
     const id = window.crypto.randomUUID();
-    const timeStamp = new Date().toString();
     const formData = new FormData(e.currentTarget);
 
     for (const [key, value] of formData) {
@@ -115,17 +107,14 @@ const AddRecipe = () => {
           photo,
         };
 
-        objectFormValues.preparation = [
-          ...objectFormValues.preparation,
-          newPreparationObj,
-        ];
+        objectFormValues.preparation = [...objectFormValues.preparation, newPreparationObj];
       }
     }
 
     const ingredients = (objectFormValues["ingredients"] as string).split(",");
     const newRecipeValues = {
       id,
-      timeStamp,
+      createdAt: "",
       title: objectFormValues.title,
       autor: objectFormValues.autor,
       description: objectFormValues.description,
@@ -183,19 +172,9 @@ const AddRecipe = () => {
       <div className={style["parent-recipes2"]}>
         <h2>Añadir nueva receta</h2>
         <form className={style["form"]} onSubmit={handleOnSubmit}>
-          <InputImage
-            id="user-files"
-            name="mainPhoto"
-            placeholder="Select Image"
-            labelPhoto="Añade foto principal"
-          />
+          <InputImage id="user-files" name="mainPhoto" placeholder="Select Image" labelPhoto="Añade foto principal" />
 
-          <TextField
-            id="input-title"
-            labelTitle="Título receta"
-            inputName="title"
-            placeholder="Añade título"
-          />
+          <TextField id="input-title" labelTitle="Título receta" inputName="title" placeholder="Añade título" />
           <TextField
             id="input-autor"
             labelTitle="Autor receta"
@@ -255,10 +234,7 @@ const AddRecipe = () => {
           />
 
           <div className={style["btn-add-preparation-box"]}>
-            <span
-              className={style["btn-add-preparation"]}
-              onClick={handleClickAddPreparationStep}
-            >
+            <span className={style["btn-add-preparation"]} onClick={handleClickAddPreparationStep}>
               <IconAdd width="30" height="30" />
               {preparationSteps.length > 0 ? (
                 <span>Añadir otro paso de preparación</span>

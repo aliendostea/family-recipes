@@ -17,7 +17,7 @@ type PreparationSteps = {
 
 export interface RecipeProps {
   id: string;
-  timeStamp: string;
+  createdAt: string;
   mainPhoto: Blob | Uint8Array | ArrayBuffer | any;
   title: string;
   autor: string;
@@ -29,8 +29,23 @@ export interface RecipeProps {
   preparation: PreparationSteps[];
 }
 
+export interface RecipePropsFromAPI {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  mainPhoto: Blob | Uint8Array | ArrayBuffer | any;
+  title: string;
+  author: string;
+  description: string;
+  category: string;
+  cookingTime: number | string;
+  peopleQuantity: number | string;
+  ingredients: string[] | string;
+  preparation: PreparationSteps[];
+}
+
 export interface ResponseAPIProps {
   status: number;
-  response: RecipeProps[];
+  response: RecipePropsFromAPI[];
   ok: boolean;
 }
