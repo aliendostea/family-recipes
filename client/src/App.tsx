@@ -38,10 +38,8 @@ const App = () => {
       setIsLoadingRecipes(true);
 
       try {
-        ///  await promiseForTesting(4000);
         const { response }: ResponseAPIProps = await getFetchingDataRecipes();
-
-        const newInitRecipes: RecipeProps[] = response.map((recipe) => recipeAdapterObj(recipe));
+        const newInitRecipes: RecipeProps[] = response.recipes.map((recipe) => recipeAdapterObj(recipe));
 
         setAllInitRecipes(newInitRecipes);
         setAllCategories(newInitRecipes);

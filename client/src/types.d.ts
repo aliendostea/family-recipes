@@ -44,8 +44,13 @@ export interface RecipePropsFromAPI {
   preparation: PreparationSteps[];
 }
 
+type ResponseRecipesMessageProps = {
+  message: string;
+  recipes: RecipePropsFromAPI[] | [];
+};
+
 export interface ResponseAPIProps {
   status: number;
-  response: RecipePropsFromAPI[];
+  response: ResponseRecipesMessageProps;
   ok: boolean;
 }

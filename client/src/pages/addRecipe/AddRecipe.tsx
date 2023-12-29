@@ -6,9 +6,10 @@ import { SelectChips } from "./selectChips";
 import { InputImage } from "./inputImage";
 import { PreparationStepsList } from "./preparationSteps";
 import { IconAdd } from "@/icons";
-import { RecipeProps } from "@/types";
+import { RecipeProps, ResponseAPIProps } from "@/types";
 import { initialInputsRecipeValues } from "../../const";
 import { fetchPostRecipe } from "../../services";
+import { recipeAdapterObj } from "../../adapters/recipeAdapter";
 
 import style from "./AddRecipe.module.scss";
 
@@ -59,10 +60,12 @@ const AddRecipe = () => {
 
   const sendSubmitDataForm = async (recipe: RecipeProps) => {
     try {
-      const res = await fetchPostRecipe(recipe);
+      const resAPI: ResponseAPIProps = await fetchPostRecipe(recipe);
 
-      if (res.ok) {
-        console.log("sendSubmitDataForm", res);
+      if (resAPI.ok) {
+        const [recipeAdded] = resAPI.response.recipes.map((recipe) => recipeAdapterObj(recipe));
+
+        setRecipes(recipeAdded);
       }
     } catch (error) {
       console.log(error);
@@ -126,7 +129,6 @@ const AddRecipe = () => {
       mainPhoto: objectFormValues.mainPhoto,
     };
 
-    setRecipes(newRecipeValues);
     sendSubmitDataForm(newRecipeValues);
     // input.value = "";
   };
