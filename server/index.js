@@ -5,30 +5,30 @@ import { RecipesModel } from "./models/mongodb/recipes.js";
 const PORT = process.env.PORT ?? 1234;
 const app = express();
 
-const ACCEPTED_ORIGINS = [
-  "http://localhost:5173",
-  "http://localhost:1234",
-  "https://family-recipes-api.vercel.app/",
-  "https://family-recipes-api.vercel.app/api/v1",
-  "https://family-recipes-api.vercel.app/api/v2/add",
-];
+// const ACCEPTED_ORIGINS = [
+//   "http://localhost:5173",
+//   "http://localhost:1234",
+//   "https://family-recipes-api.vercel.app/",
+//   "https://family-recipes-api.vercel.app/api/v1",
+//   "https://family-recipes-api.vercel.app/api/v2/add",
+// ];
 
-const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
-  cors({
-    origin: (origin, callback) => {
-      if (acceptedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
+// const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
+//   cors({
+//     origin: (origin, callback) => {
+//       if (acceptedOrigins.includes(origin)) {
+//         return callback(null, true);
+//       }
 
-      if (!origin) {
-        return callback(null, true);
-      }
+//       if (!origin) {
+//         return callback(null, true);
+//       }
 
-      return callback(new Error("Not allowed by CORS"));
-    },
-  });
+//       return callback(new Error("Not allowed by CORS"));
+//     },
+//   });
 
-app.use(corsMiddleware());
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/v1", async (req, res) => {
