@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { RecipesModel } from "./models/mongodb/recipes.js";
+import { validateRecipe } from "./schemas/recipeSchema.js";
 
 const PORT = process.env.PORT ?? 1234;
 const app = express();
@@ -60,9 +61,21 @@ app.get("/api/v1", async (req, res) => {
 });
 
 app.post("/api/v2/add", async (req, res) => {
-  const requestData = req.body;
+  const result = validateRecipe(req.body);
 
-  const provitionalPreparation = requestData.preparation.map((preparation) => {
+  if (result.error) {
+    return res.json({
+      status: 400,
+      response: {
+        message: JSON.parse(result.error.message),
+        recipes: [],
+      },
+      ok: false,
+    });
+  }
+
+  const { data } = result;
+  const provitionalPreparation = data.preparation.map((preparation) => {
     return {
       label: preparation.label,
       value: preparation.value,
@@ -71,27 +84,23 @@ app.post("/api/v2/add", async (req, res) => {
   });
 
   const provisionalObj = {
-    createdAt: requestData.createdAt,
-    mainPhoto: "mainPhoto-test",
-    title: requestData.title,
-    author: requestData.author,
-    description: requestData.description,
-    category: requestData.category,
-    cookingTime: requestData.cookingTime,
-    peopleQuantity: requestData.peopleQuantity,
-    ingredients: requestData.ingredients,
+    createdAt: data.createdAt,
+    mainPhoto: data.mainPhoto,
+    title: data.title,
+    author: data.author,
+    description: data.description,
+    category: data.category,
+    cookingTime: data.cookingTime,
+    peopleQuantity: data.peopleQuantity,
+    ingredients: data.ingredients,
     preparation: provitionalPreparation,
   };
-
-  console.log("---------", provisionalObj);
 
   try {
     const recipeAdded = await RecipesModel.setRecipe(provisionalObj);
 
-    console.log("---------recipeAdded", recipeAdded);
-
     if (recipeAdded === undefined) {
-      res.json({
+      return res.json({
         status: 500,
         response: {
           message: "Error adding recipe",
@@ -99,7 +108,6 @@ app.post("/api/v2/add", async (req, res) => {
         },
         ok: false,
       });
-      return;
     }
 
     const RESPONSE_SERVER_JSON = {
