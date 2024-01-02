@@ -1,7 +1,7 @@
 import { RecipeProps } from "./types";
 
 export async function getFetchingDataRecipes() {
-  return fetch(`${import.meta.env.VITE_API_ENDPOINT_GET_RECIPES}`)
+  return fetch(import.meta.env.VITE_API_ENDPOINT_GET_RECIPES)
     .then((res) => res.json())
     .then((res) => {
       if (res.ok === false) {
@@ -19,7 +19,7 @@ export async function getFetchingDataRecipes() {
 }
 
 export async function fetchPostRecipe(recipe: RecipeProps) {
-  return fetch(`${import.meta.env.VITE_API_ENDPOINT_ADD_RECIPE}`, {
+  return fetch(import.meta.env.VITE_API_ENDPOINT_ADD_RECIPE, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

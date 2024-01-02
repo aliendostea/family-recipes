@@ -20,7 +20,7 @@ function getRandomNumber() {
   const [, randomNumber] = Math.random().toString().split(".");
   return randomNumber;
 }
-function getIdPreparationStepsList() {
+function getProvitionalIDPreparationStepsList() {
   const randomString = raString.split(" ").join("");
   const randomNumberString = getRandomNumber();
   const randomNumberString2 = getRandomNumber()[0];
@@ -31,6 +31,28 @@ function getIdPreparationStepsList() {
     randomString[first as keyof typeof randomString]
   }-${randomNumberString.substring(0, 2)}-${randomNumberString.substring(4, 6)}`;
 }
+
+// const recipeTest = {
+//   id: "",
+//   createdAt: "",
+//   title: "Spaghetti Bolognese nombre largo! 2",
+//   author: "Chef John 2",
+//   description: "A classic Italian dish with a twist.",
+//   category: "Pasta",
+//   cookingTime: "30 minutes",
+//   peopleQuantity: "4",
+//   ingredients: "Ground beef, tomatoes, pasta, onion, garlic, herbs",
+//   preparation: [
+//     {
+//       id: "134578",
+//       label: "Preparación paso 1",
+//       value: "Pelamos el tomate para cortarlo en finas rodajas.",
+//       photo: "img.png",
+//     },
+//   ],
+//   mainPhoto:
+//     "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1681&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+// };
 
 function getPreparationValuesFromInputs({
   objectFormValues,
@@ -77,7 +99,6 @@ const AddRecipe = () => {
     const objectFormValues: RecipeProps = {
       ...initialInputsRecipeValues,
     };
-    const id = window.crypto.randomUUID();
     const formData = new FormData(e.currentTarget);
 
     for (const [key, value] of formData) {
@@ -97,17 +118,17 @@ const AddRecipe = () => {
           key: "value",
           index,
         });
-        const photo = getPreparationValuesFromInputs({
-          objectFormValues,
-          key: "photo",
-          index,
-        });
+        // const photo = getPreparationValuesFromInputs({
+        //   objectFormValues,
+        //   key: "photo",
+        //   index,
+        // });
 
         const newPreparationObj = {
           id,
           label: `Preparación paso ${Number(index) + 1}`,
           value,
-          photo,
+          photo: "provisional photo value", //// provisional value - error -
         };
 
         objectFormValues.preparation = [...objectFormValues.preparation, newPreparationObj];
@@ -116,7 +137,7 @@ const AddRecipe = () => {
 
     const ingredients = (objectFormValues["ingredients"] as string).split(",");
     const newRecipeValues = {
-      id,
+      id: "",
       createdAt: "",
       title: objectFormValues.title,
       author: objectFormValues.author,
@@ -126,7 +147,8 @@ const AddRecipe = () => {
       peopleQuantity: objectFormValues.peopleQuantity,
       ingredients,
       preparation: objectFormValues.preparation,
-      mainPhoto: objectFormValues.mainPhoto,
+      mainPhoto:
+        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", //// provisional value - error - tiene que ser objectFormValues.mainPhoto
     };
 
     sendSubmitDataForm(newRecipeValues);
@@ -138,12 +160,12 @@ const AddRecipe = () => {
   };
 
   const handleClickAddPreparationStep = () => {
-    const id = getIdPreparationStepsList();
+    const id = getProvitionalIDPreparationStepsList();
 
     const newArray = [
       ...preparationSteps,
       {
-        id: id,
+        id,
         label: `Preparación paso ${preparationSteps.length + 1}`,
         value: "",
         photo: "",

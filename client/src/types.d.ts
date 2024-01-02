@@ -8,31 +8,22 @@ declare global {
   }
 }
 
-type PreparationSteps = {
-  id: string;
+interface PreparationBaseProps {
   label: string;
   value: string;
   photo: string;
-};
-
-export interface RecipeProps {
-  id: string;
-  createdAt: string;
-  mainPhoto: Blob | Uint8Array | ArrayBuffer | any;
-  title: string;
-  author: string;
-  description: string;
-  category: string;
-  cookingTime: number | string;
-  peopleQuantity: number | string;
-  ingredients: string[] | string;
-  preparation: PreparationSteps[];
 }
 
-export interface RecipePropsFromAPI {
+interface PreparationProps extends PreparationBaseProps {
+  id: string;
+}
+
+export interface PreparationPropsFromAPI extends PreparationBaseProps {
   _id: string;
+}
+
+export interface RecipeBaseProps {
   createdAt: string;
-  updatedAt: string;
   mainPhoto: Blob | Uint8Array | ArrayBuffer | any;
   title: string;
   author: string;
@@ -41,7 +32,18 @@ export interface RecipePropsFromAPI {
   cookingTime: number | string;
   peopleQuantity: number | string;
   ingredients: string[] | string;
-  preparation: PreparationSteps[];
+  preparation: PreparationProps[];
+}
+
+export interface RecipeProps extends RecipeBaseProps {
+  id: string;
+  preparation: PreparationProps[];
+}
+
+export interface RecipePropsFromAPI extends RecipeBaseProps {
+  _id: string;
+  updatedAt: string;
+  preparation: PreparationPropsFromAPI[];
 }
 
 type ResponseRecipesMessageProps = {
