@@ -6,30 +6,32 @@ import { validateRecipe } from "./schemas/recipeSchema.js";
 const PORT = process.env.PORT ?? 1234;
 const app = express();
 
-// const ACCEPTED_ORIGINS = [
-//   "http://localhost:5173",
-//   "http://localhost:1234",
-//   "https://family-recipes-api.vercel.app/",
-//   "https://family-recipes-api.vercel.app/api/v1",
-//   "https://family-recipes-api.vercel.app/api/v2/add",
-// ];
+const ACCEPTED_ORIGINS = [
+  "http://localhost:5173",
+  "http://localhost:5173/",
+  "http://localhost:5173/add-recipe",
+  "http://localhost:1234",
+  "http://localhost:1234/api/v2/add",
+  "https://family-recipes-api.vercel.app",
+  "https://family-recipes-api.vercel.app/",
+  "https://family-recipes-api.vercel.app/api/v1",
+  "https://family-recipes-api.vercel.app/api/v2/add",
+];
 
-// const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
-//   cors({
-//     origin: (origin, callback) => {
-//       if (acceptedOrigins.includes(origin)) {
-//         return callback(null, true);
-//       }
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (ACCEPTED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+      if (!origin) {
+        return callback(null, true);
+      }
 
-//       if (!origin) {
-//         return callback(null, true);
-//       }
-
-//       return callback(new Error("Not allowed by CORS"));
-//     },
-//   });
-
-app.use(cors());
+      return callback(new Error("Not allowed by CORS"));
+    },
+  })
+);
 app.use(express.json());
 
 app.get("/api/v1", async (req, res) => {
