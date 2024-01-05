@@ -16,6 +16,9 @@ $ npm install
 # Run the development server:
 $ npm run dev
 
+# Run the all tests:
+$ npm run test
+
 ```
 
 - The client will be accessible at http://localhost:5173/
@@ -45,6 +48,8 @@ https://family-recipes-seven.vercel.app/
 # Route add-recipe
 https://family-recipes-seven.vercel.app/add-recipe
 ```
+
+- Click on https://family-recipes-seven.vercel.app/
 
 ## Technologies used 🛠️
 
