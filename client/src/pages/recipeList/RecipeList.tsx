@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecipeStore } from "../../store/recipes";
 import { Card, CardSkeleton } from "@/card";
 import { IconEmpty, IconX } from "@/icons";
+import { ROUTE_RECIPES_SEARCH } from "../../const";
 
 import style from "./RecipeList.module.scss";
 import { Button } from "@/button";
@@ -63,7 +64,7 @@ const RecipeList = () => {
 
   const handleOnClickAllRecipes = () => {
     setselectedCategory("");
-    navigate(`/recipes/search=`);
+    navigate(`${ROUTE_RECIPES_SEARCH}=`);
   };
 
   const handleOnClickGoBack = () => {
