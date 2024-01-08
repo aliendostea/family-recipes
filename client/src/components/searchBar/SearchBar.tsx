@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { IconSearch } from "@/icons";
 import { Button } from "@/button";
 
-import style from "./SearchBar.module.scss";
+import style from "./SearchBar.module.css";
 
 interface SearchBarProps {
   inputName: string;
@@ -27,11 +27,7 @@ const SearchBar = ({ inputName, routeRecipes, label }: SearchBarProps) => {
   return (
     <form className={style.search} onSubmit={handleOnSubmit}>
       <IconSearch width="25" height="25" />
-      <input
-        type="text"
-        name={inputName}
-        placeholder="Intenta buscar pasta bolognese o nonna"
-      />
+      <input type="text" name={inputName} placeholder="Intenta buscar pasta bolognese o nonna" />
       <Button label={label} type="submit" />
     </form>
   );
